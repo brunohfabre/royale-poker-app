@@ -35,7 +35,7 @@ export function Dashboard() {
             <Text>3</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="flex-1">
+          <TouchableOpacity className="flex-1" onPress={handleSignOut}>
             <Text>4</Text>
           </TouchableOpacity>
         </View>

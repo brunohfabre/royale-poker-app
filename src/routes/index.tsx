@@ -11,7 +11,7 @@ type RootStackParamList = {
 
   'sign-up-name': undefined
   'sign-up-email': { name: string }
-  'sign-up-code': { name: string; email: string }
+  'sign-up-code': { email: string }
   'sign-up-password': { token: string }
 
   dashboard: undefined

@@ -13,7 +13,9 @@ import { ZodError, z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
+import { api } from '@/lib/api'
 import { useAuthStore } from '@/stores/auth'
+import { useLoadingStore } from '@/stores/loading'
 import { useRoute } from '@react-navigation/native'
 
 const passwordFormSchema = z
@@ -32,9 +34,10 @@ type Params = {
 
 export function SignUpPassword() {
   const route = useRoute()
-  const params = route.params as Params
+  const { token } = route.params as Params
 
   const setCredentials = useAuthStore((state) => state.setCredentials)
+  const setLoading = useLoadingStore((state) => state.setLoading)
 
   const confirmPasswordInputRef = useRef<TextInput>(null)
 
@@ -45,24 +48,34 @@ export function SignUpPassword() {
     confirmPasswordInputRef.current?.focus()
   }
 
-  function handleSignUp() {
+  async function handleSignUp() {
     try {
+      setLoading(true)
+
       const { password } = passwordFormSchema.parse({
         password: passwordInput,
         confirmPassword: confirmPasswordInput,
       })
 
-      setCredentials({
-        token: password,
-        user: {
-          id: 'id',
-          name: 'name',
+      const response = await api.post(
+        '/password',
+        {
+          password,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+
+      setCredentials(response.data)
     } catch (err) {
       if (err instanceof ZodError) {
         Alert.alert('Oh no!', err.errors[0].message)
       }
+    } finally {
+      setLoading(false)
     }
   }
 

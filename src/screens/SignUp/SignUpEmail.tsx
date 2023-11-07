@@ -13,6 +13,8 @@ import { ZodError, z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
+import { api } from '@/lib/api'
+import { useLoadingStore } from '@/stores/loading'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 const emailFormSchema = z.object({
@@ -27,24 +29,32 @@ export function SignUpEmail() {
   const navigation = useNavigation()
   const route = useRoute()
 
-  const params = route.params as Params
+  const { name } = route.params as Params
+
+  const setLoading = useLoadingStore((state) => state.setLoading)
 
   const [emailInput, setEmailInput] = useState('')
 
-  console.log(params)
-
-  function handleNavigateToPassword() {
+  async function handleNavigateToPassword() {
     try {
+      setLoading(true)
+
       const { email } = emailFormSchema.parse({ email: emailInput })
 
+      await api.post('/register', {
+        name,
+        email,
+      })
+
       navigation.navigate('sign-up-code', {
-        ...params,
         email,
       })
     } catch (err) {
       if (err instanceof ZodError) {
         Alert.alert('Oh no!', err.errors[0].message)
       }
+    } finally {
+      setLoading(false)
     }
   }
 

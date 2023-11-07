@@ -13,7 +13,9 @@ import { ZodError, z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
+import { api } from '@/lib/api'
 import { useAuthStore } from '@/stores/auth'
+import { useLoadingStore } from '@/stores/loading'
 import { useRoute } from '@react-navigation/native'
 
 const passwordFormSchema = z.object({
@@ -26,27 +28,31 @@ type Params = {
 
 export function SignInPassword() {
   const route = useRoute()
-  const params = route.params as Params
+  const { email } = route.params as Params
 
   const setCredentials = useAuthStore((state) => state.setCredentials)
+  const setLoading = useLoadingStore((state) => state.setLoading)
 
   const [passwordInput, setPasswordInput] = useState('')
 
-  function handleSignIn() {
+  async function handleSignIn() {
     try {
+      setLoading(true)
+
       const { password } = passwordFormSchema.parse({ password: passwordInput })
 
-      setCredentials({
-        token: password,
-        user: {
-          id: 'id',
-          name: 'name',
-        },
+      const response = await api.post('/sessions', {
+        email,
+        password,
       })
+
+      setCredentials(response.data)
     } catch (err) {
       if (err instanceof ZodError) {
         Alert.alert('Oh no!', err.errors[0].message)
       }
+    } finally {
+      setLoading(false)
     }
   }
 
