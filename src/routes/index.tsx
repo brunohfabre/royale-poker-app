@@ -15,6 +15,10 @@ type RootStackParamList = {
   'sign-up-password': { token: string }
 
   dashboard: undefined
+  friends: undefined
+  'new-game': undefined
+  history: undefined
+  account: undefined
 }
 
 declare global {

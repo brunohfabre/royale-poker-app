@@ -1,12 +1,28 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 
-import { useAuthStore } from '@/stores/auth'
+import { Book } from '@/components/icons/Book'
+import { Home } from '@/components/icons/Home'
+import { Paper } from '@/components/icons/Paper'
+import { User } from '@/components/icons/User'
+import { useNavigation } from '@react-navigation/native'
 
 export function Dashboard() {
-  const clearCredentials = useAuthStore((state) => state.clearCredentials)
+  const navigation = useNavigation()
 
-  function handleSignOut() {
-    clearCredentials()
+  function navigateToFriends() {
+    navigation.navigate('friends')
+  }
+
+  function navigateToNewGame() {
+    navigation.navigate('new-game')
+  }
+
+  function navigateToHistory() {
+    navigation.navigate('history')
+  }
+
+  function navigateToAccount() {
+    navigation.navigate('account')
   }
 
   return (
@@ -18,25 +34,40 @@ export function Dashboard() {
       </Text>
 
       <SafeAreaView className="absolute left-0 right-0 bottom-0">
-        <View className="m-6 h-16 flex-row bg-red-200">
-          <TouchableOpacity className="flex-1">
-            <Text>1</Text>
+        <View className="m-6 h-16 flex-row bg-zinc-300 p-2">
+          <TouchableOpacity
+            className="flex-1 items-center justify-center"
+            disabled
+          >
+            <Home />
           </TouchableOpacity>
 
-          <TouchableOpacity className="flex-1">
-            <Text>2</Text>
+          <TouchableOpacity
+            className="flex-1 items-center justify-center"
+            onPress={navigateToFriends}
+          >
+            <Book />
           </TouchableOpacity>
 
-          <TouchableOpacity className="px-4">
+          <TouchableOpacity
+            className="px-4 bg-zinc-400 mx-2 justify-center"
+            onPress={navigateToNewGame}
+          >
             <Text>New game</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity className="flex-1">
-            <Text>3</Text>
+          <TouchableOpacity
+            className="flex-1 items-center justify-center"
+            onPress={navigateToHistory}
+          >
+            <Paper />
           </TouchableOpacity>
 
-          <TouchableOpacity className="flex-1" onPress={handleSignOut}>
-            <Text>4</Text>
+          <TouchableOpacity
+            className="flex-1 items-center justify-center"
+            onPress={navigateToAccount}
+          >
+            <User />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
