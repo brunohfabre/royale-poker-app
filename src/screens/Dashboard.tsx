@@ -1,4 +1,5 @@
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Book } from '@/components/icons/Book'
 import { Home } from '@/components/icons/Home'
@@ -14,7 +15,7 @@ export function Dashboard() {
   }
 
   function navigateToNewGame() {
-    navigation.navigate('new-game')
+    navigation.navigate('play')
   }
 
   function navigateToHistory() {
@@ -26,12 +27,10 @@ export function Dashboard() {
   }
 
   return (
-    <View className="flex-1 p-6">
-      <Text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
-        perspiciatis enim eum libero, vero dolor autem culpa commodi aliquid
-        quam aut a sequi ex possimus debitis unde nihil. Fuga, iusto?
-      </Text>
+    <SafeAreaView className="flex-1 p-6">
+      <View className="flex-1 items-center justify-center">
+        <Text>Dashboard</Text>
+      </View>
 
       <SafeAreaView className="absolute left-0 right-0 bottom-0">
         <View className="m-6 h-16 flex-row bg-zinc-300 p-2">
@@ -53,7 +52,7 @@ export function Dashboard() {
             className="px-4 bg-zinc-400 mx-2 justify-center"
             onPress={navigateToNewGame}
           >
-            <Text>New game</Text>
+            <Text>Play</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -71,6 +70,6 @@ export function Dashboard() {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </View>
+    </SafeAreaView>
   )
 }

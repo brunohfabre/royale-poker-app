@@ -16,7 +16,7 @@ type RootStackParamList = {
 
   dashboard: undefined
   friends: undefined
-  'new-game': undefined
+  play: undefined
   history: undefined
   account: undefined
 }

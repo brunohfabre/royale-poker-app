@@ -21,7 +21,11 @@ export function PageHeader({ title }: PageHeaderProps) {
         <CaretLeft />
       </TouchableOpacity>
 
-      {title && <Text className="uppercase text-sm font-medium">Title</Text>}
+      {title && (
+        <Text className="uppercase text-sm font-medium">
+          {title.toUpperCase()}
+        </Text>
+      )}
 
       <View className="w-6"></View>
     </View>

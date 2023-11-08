@@ -3,7 +3,7 @@ import { Alert } from 'react-native'
 import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'http://172.20.18.172:3333',
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
 })
 
 api.interceptors.response.use(
