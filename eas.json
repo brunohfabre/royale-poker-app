@@ -11,9 +11,6 @@
       "distribution": "internal"
     },
     "production": {
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://api.pokery.coddee.com.br"
-      },
       "android": {
         "buildType": "apk"
       }
