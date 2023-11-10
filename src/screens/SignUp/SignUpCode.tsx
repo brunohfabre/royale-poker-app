@@ -72,7 +72,7 @@ export function SignUpCode() {
           <View className="mt-6">
             <Text className="text-sm">Code</Text>
             <TextInput
-              placeholder="Name"
+              placeholder="Code"
               className="h-12 bg-zinc-300 px-4 mt-1"
               returnKeyType="next"
               onSubmitEditing={handleVerifyCode}
