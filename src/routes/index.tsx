@@ -16,9 +16,11 @@ type RootStackParamList = {
 
   dashboard: undefined
   friends: undefined
-  play: undefined
+  lobby: undefined
   history: undefined
   account: undefined
+  'new-game': undefined
+  game: undefined
 }
 
 declare global {

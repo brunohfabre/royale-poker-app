@@ -15,7 +15,7 @@ export function Dashboard() {
   }
 
   function navigateToNewGame() {
-    navigation.navigate('play')
+    navigation.navigate('lobby')
   }
 
   function navigateToHistory() {
