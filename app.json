@@ -23,7 +23,8 @@
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.pokery"
+      "package": "com.pokery",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"

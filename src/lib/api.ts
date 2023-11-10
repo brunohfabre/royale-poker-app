@@ -13,6 +13,12 @@ api.interceptors.response.use(
   function (error) {
     console.log('ERROR', JSON.stringify(error, null, 2))
 
+    if (error.code === 'ERR_NETWORK') {
+      Alert.alert('Service unavailable', 'Please try again later.')
+
+      return
+    }
+
     if (error.response.data.message) {
       Alert.alert('Ops.', error.response.data.message)
     } else {

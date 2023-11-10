@@ -1,26 +1,50 @@
-import { View, Text } from 'react-native'
-
-import { StatusBar } from 'expo-status-bar'
+import { useEffect } from 'react'
+import { Text } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Button } from '@/components/Button'
-import { useNavigation } from '@react-navigation/native'
+import { socket } from '@/lib/io'
+import { useAuthStore } from '@/stores/auth'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 
 export function NewGame() {
   const navigation = useNavigation()
 
+  const user = useAuthStore((state) => state.user)
+
+  useEffect(() => {
+    socket.emit('games.create', { userId: user?.id }, (response: any) => {
+      console.log(response)
+    })
+  }, [user])
+
+  function handleNavigateToGame() {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {
+            name: 'dashboard',
+          },
+          {
+            name: 'game',
+          },
+        ],
+      }),
+    )
+  }
+
   return (
     <>
-      <View className="p-6">
+      <SafeAreaView className="p-6">
         <Text>new game</Text>
 
         <Button
-          title="Star"
+          title="Start game"
           className="mt-6"
-          onPress={() => navigation.navigate('game')}
+          onPress={handleNavigateToGame}
         />
-      </View>
-
-      <StatusBar style="light" />
+      </SafeAreaView>
     </>
   )
 }

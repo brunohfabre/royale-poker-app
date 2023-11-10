@@ -18,7 +18,11 @@ export function AppRoutes() {
       <Stack.Screen name="history" component={History} />
       <Stack.Screen name="account" component={Account} />
       <Stack.Screen name="new-game" component={NewGame} />
-      <Stack.Screen name="game" component={Game} />
+      <Stack.Screen
+        name="game"
+        component={Game}
+        options={{ gestureEnabled: false }}
+      />
     </Stack.Navigator>
   )
 }

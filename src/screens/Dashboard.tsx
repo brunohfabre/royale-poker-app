@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -5,10 +6,18 @@ import { Book } from '@/components/icons/Book'
 import { Home } from '@/components/icons/Home'
 import { Paper } from '@/components/icons/Paper'
 import { User } from '@/components/icons/User'
+import { socket } from '@/lib/io'
+import { useAuthStore } from '@/stores/auth'
 import { useNavigation } from '@react-navigation/native'
 
 export function Dashboard() {
   const navigation = useNavigation()
+
+  const user = useAuthStore((state) => state.user)
+
+  useEffect(() => {
+    socket.emit('online', { userId: user?.id })
+  }, [user])
 
   function navigateToFriends() {
     navigation.navigate('friends')

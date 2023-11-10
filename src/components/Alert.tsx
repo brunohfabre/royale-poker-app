@@ -28,7 +28,7 @@ export function Alert({
           <Text className="text-lg font-medium text-center">{title}</Text>
           <Text className="text-sm text-center mt-1">{text}</Text>
 
-          {onAction && onCancel && (
+          {(onAction || onCancel) && (
             <View className="mt-8">
               {!!onAction && <Button title={actionText} onPress={onAction} />}
               {!!onCancel && (

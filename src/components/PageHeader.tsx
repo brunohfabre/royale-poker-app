@@ -6,12 +6,19 @@ import { CaretLeft } from './icons/CaretLeft'
 
 interface PageHeaderProps {
   title?: string
+  beforeBack?: () => void
 }
 
-export function PageHeader({ title }: PageHeaderProps) {
+export function PageHeader({ title, beforeBack }: PageHeaderProps) {
   const navigation = useNavigation()
 
   function handleGoBack() {
+    if (beforeBack) {
+      beforeBack()
+
+      return
+    }
+
     navigation.goBack()
   }
 
