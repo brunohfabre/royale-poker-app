@@ -1,52 +1,79 @@
-import { Text, TouchableOpacity, View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { Text, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { CaretRight } from '@/components/icons/CaretRight'
-import { PageHeader } from '@/components/PageHeader'
-import { useNavigation } from '@react-navigation/native'
+import { Button } from '@/components/Button'
+import { socket } from '@/lib/io'
+import { useAuthStore } from '@/stores/auth'
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
+
+type PlayerType = {
+  id: string
+  name: string
+}
 
 export function Lobby() {
   const navigation = useNavigation()
+  const route = useRoute()
 
-  function handleNavigateToNewGame() {
-    navigation.navigate('new-game')
+  const user = useAuthStore((state) => state.user)
+
+  const [players, setPlayers] = useState<PlayerType[]>([])
+
+  const { matchId } = route.params as {
+    matchId: string
+  }
+
+  useEffect(() => {
+    socket.emit('match.get', { matchId }, ({ match }: any) => {
+      setPlayers(match.players)
+    })
+
+    socket.on(`match.${matchId}.player.joined`, ({ player }) => {
+      setPlayers((prevState) => [...prevState, player])
+    })
+
+    socket.on(`match.${matchId}.player.exited`, ({ playerId }) => {
+      setPlayers((prevState) =>
+        prevState.filter((player) => player.id !== playerId),
+      )
+    })
+
+    return () => {
+      socket.off(`match.${matchId}.user.joined`)
+      socket.off(`match.${matchId}.user.exited`)
+
+      socket.emit(`match.exit`, { matchId, playerId: user?.id })
+    }
+  }, [matchId, user?.id])
+
+  function handleNavigateToGame() {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          {
+            name: 'dashboard',
+          },
+          {
+            name: 'game',
+          },
+        ],
+      }),
+    )
   }
 
   return (
-    <SafeAreaView className="flex-1">
-      <PageHeader title="lobby" />
-
-      <View className="p-6">
-        <TouchableOpacity
-          className="bg-zinc-300 h-32 items-center justify-between flex-row p-6 opacity-50"
-          activeOpacity={0.6}
-          disabled
-        >
-          <Text className="text-lg font-medium">Local</Text>
-
-          <CaretRight />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          className="bg-zinc-300 h-32 items-center justify-between flex-row p-6 mt-3"
-          activeOpacity={0.6}
-          onPress={handleNavigateToNewGame}
-        >
-          <Text className="text-lg font-medium">Online</Text>
-
-          <CaretRight />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          className="bg-zinc-300 h-32 items-center justify-between flex-row p-6 mt-3 opacity-50"
-          activeOpacity={0.6}
-          disabled
-        >
-          <Text className="text-lg font-medium">Tournament</Text>
-
-          <CaretRight />
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+    <>
+      <SafeAreaView className="p-6">
+        {players.map((player) => (
+          <Text key={player.id}>{player.name}</Text>
+        ))}
+      </SafeAreaView>
+    </>
   )
 }

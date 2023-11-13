@@ -16,10 +16,12 @@ type RootStackParamList = {
 
   dashboard: undefined
   friends: undefined
-  lobby: undefined
+  'game-type': undefined
   history: undefined
   account: undefined
-  'new-game': undefined
+  lobby: {
+    matchId: string
+  }
   game: undefined
 }
 
