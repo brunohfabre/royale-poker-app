@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { IconButton } from '@/components/IconButton'
 import { Book } from '@/components/icons/Book'
 import { Home } from '@/components/icons/Home'
 import { Paper } from '@/components/icons/Paper'
@@ -24,7 +25,7 @@ export function Dashboard() {
   }
 
   function navigateToNewGame() {
-    navigation.navigate('lobby')
+    navigation.navigate('game-type')
   }
 
   function navigateToHistory() {
@@ -57,12 +58,12 @@ export function Dashboard() {
             <Book />
           </TouchableOpacity>
 
-          <TouchableOpacity
+          <IconButton
             className="px-4 bg-zinc-400 mx-2 justify-center"
             onPress={navigateToNewGame}
           >
-            <Text>Play</Text>
-          </TouchableOpacity>
+            <Text>+</Text>
+          </IconButton>
 
           <TouchableOpacity
             className="flex-1 items-center justify-center"
