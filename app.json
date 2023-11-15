@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Pokery",
-    "slug": "pokery",
+    "name": "Royal Poker",
+    "slug": "royal-poker",
     "version": "0.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "package": "com.pokery",
+      "package": "com.royalpoker",
       "versionCode": 2
     },
     "web": {
