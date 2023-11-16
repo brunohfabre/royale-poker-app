@@ -37,7 +37,7 @@ export function GameType() {
 
   return (
     <SafeAreaView className="flex-1">
-      <PageHeader title="game type" />
+      <PageHeader title="Find match" />
 
       <View className="p-6">
         <TouchableOpacity
