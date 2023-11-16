@@ -38,7 +38,7 @@ export const useAuthStore = create(
         })),
     }),
     {
-      name: 'royal-poker:auth',
+      name: 'royale-poker:auth',
       storage: createJSONStorage(() => AsyncStorage),
     },
   ),

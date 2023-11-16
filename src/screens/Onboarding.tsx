@@ -19,7 +19,7 @@ export function Onboarding() {
     <View className="flex-1">
       <SafeAreaView className="flex-1 bg-zinc-300">
         <View className="flex-1 items-center justify-center">
-          <Text className="text-6xl font-medium">Royal</Text>
+          <Text className="text-6xl font-medium">Royale</Text>
         </View>
       </SafeAreaView>
 
