@@ -14,10 +14,7 @@
       "android": {
         "buildType": "apk"
       },
-      "autoIncrement": true,
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://api.royale-poker.coddee.com.br"
-      }
+      "autoIncrement": true
     }
   },
   "submit": {
