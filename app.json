@@ -2,7 +2,7 @@
   "expo": {
     "name": "Royale Poker",
     "slug": "royale-poker",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -15,7 +15,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.royalepoker",
+      "buildNumber": "2"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,14 +26,14 @@
       },
       "softwareKeyboardLayoutMode": "pan",
       "package": "com.royalepoker",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "3022886e-8145-442e-b376-901cc0330fee"
+        "projectId": "bdecbf1a-8bd4-401f-8d12-909d02d190c3"
       }
     }
   }
