@@ -8,7 +8,7 @@ import { useAuthStore } from '@/stores/auth'
 import { useLoadingStore } from '@/stores/loading'
 import { useNavigation } from '@react-navigation/native'
 
-export function GameType() {
+export function FindMatch() {
   const navigation = useNavigation()
 
   const user = useAuthStore((state) => state.user)

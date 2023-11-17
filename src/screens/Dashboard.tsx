@@ -25,7 +25,7 @@ export function Dashboard() {
   }
 
   function navigateToNewGame() {
-    navigation.navigate('game-type')
+    navigation.navigate('find-match')
   }
 
   function navigateToHistory() {

@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 import { api } from '@/lib/api'
 import { Account } from '@/screens/Account'
 import { Dashboard } from '@/screens/Dashboard'
+import { FindMatch } from '@/screens/FindMatch'
 import { Friends } from '@/screens/Friends'
 import { Game } from '@/screens/Game'
-import { GameType } from '@/screens/GameType'
 import { History } from '@/screens/History'
 import { Lobby } from '@/screens/Lobby'
 import { useAuthStore } from '@/stores/auth'
@@ -45,7 +45,7 @@ export function AppRoutes() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="dashboard" component={Dashboard} />
       <Stack.Screen name="friends" component={Friends} />
-      <Stack.Screen name="game-type" component={GameType} />
+      <Stack.Screen name="find-match" component={FindMatch} />
       <Stack.Screen name="history" component={History} />
       <Stack.Screen name="account" component={Account} />
       <Stack.Screen name="lobby" component={Lobby} />
