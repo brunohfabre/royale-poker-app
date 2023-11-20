@@ -5,19 +5,24 @@ import { Routes } from '@/routes'
 import { useLoadingStore } from '@/stores/loading'
 import { PortalProvider } from '@gorhom/portal'
 import { NavigationContainer } from '@react-navigation/native'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+
+const client = new QueryClient()
 
 export default function App() {
   const loading = useLoadingStore((state) => state.loading)
 
   return (
-    <PortalProvider>
-      {loading && <Loading />}
+    <QueryClientProvider client={client}>
+      <PortalProvider>
+        {loading && <Loading />}
 
-      <NavigationContainer>
-        <Routes />
-      </NavigationContainer>
+        <NavigationContainer>
+          <Routes />
+        </NavigationContainer>
 
-      <StatusBar style="dark" />
-    </PortalProvider>
+        <StatusBar style="dark" />
+      </PortalProvider>
+    </QueryClientProvider>
   )
 }

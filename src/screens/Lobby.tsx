@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react'
-import { Text, View, Alert } from 'react-native'
+import { Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Button } from '@/components/Button'
 import { PageHeader } from '@/components/PageHeader'
 import { socket } from '@/lib/io'
 import { useAuthStore } from '@/stores/auth'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
+
+let countdownTimeout: any
 
 type PlayerType = {
   id: string
@@ -22,6 +28,7 @@ export function Lobby() {
 
   const [players, setPlayers] = useState<PlayerType[]>([])
   const [isReady, setIsReady] = useState(false)
+  const [countdownTime, setCountdownTime] = useState(0)
 
   const { matchId } = route.params as {
     matchId: string
@@ -53,15 +60,25 @@ export function Lobby() {
     })
 
     socket.on(`match.${matchId}.countdown.start`, () => {
-      Alert.alert('Countdown start')
+      setCountdownTime(9)
     })
 
     socket.on(`match.${matchId}.countdown.stop`, () => {
-      Alert.alert('Countdown stop')
+      setCountdownTime(0)
+
+      clearTimeout(countdownTimeout)
     })
 
-    socket.on(`match.${matchId}.start`, () => {
-      Alert.alert('Match start')
+    socket.on(`match.${matchId}.start`, ({ matchId }: { matchId: string }) => {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'dashboard' },
+            { name: 'match', params: { id: matchId } },
+          ],
+        }),
+      )
     })
 
     const unsubscribe = navigation.addListener('beforeRemove', () => {
@@ -79,6 +96,20 @@ export function Lobby() {
       unsubscribe()
     }
   }, [matchId, user?.id, navigation])
+
+  useEffect(() => {
+    if (countdownTime <= 0) {
+      return
+    }
+
+    countdownTimeout = setTimeout(() => {
+      setCountdownTime((prevState) => prevState - 1)
+    }, 1000)
+
+    return () => {
+      clearTimeout(countdownTimeout)
+    }
+  }, [countdownTime])
 
   function handleChangeReady() {
     socket.emit('match.player.change-ready', {
@@ -111,7 +142,13 @@ export function Lobby() {
 
       <View className="p-6">
         <Button
-          title={isReady ? "I'm not ready" : 'Get ready'}
+          title={
+            countdownTime
+              ? `Cancel (${countdownTime})`
+              : isReady
+              ? "I'm not ready"
+              : 'Get ready'
+          }
           onPress={handleChangeReady}
         />
       </View>

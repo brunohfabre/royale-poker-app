@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+
+import * as SplashScreen from 'expo-splash-screen'
+
 import { useAuthStore } from '@/stores/auth'
 
 import { AppRoutes } from './AppRoutes'
@@ -22,7 +26,9 @@ type RootStackParamList = {
   lobby: {
     matchId: string
   }
-  game: undefined
+  match: {
+    id: string
+  }
 }
 
 declare global {
@@ -31,8 +37,26 @@ declare global {
   }
 }
 
+SplashScreen.preventAutoHideAsync()
+
 export function Routes() {
   const token = useAuthStore((state) => state.token)
+
+  const [appIsReady, setAppIsReady] = useState(false)
+
+  useEffect(() => {
+    async function setAppReady() {
+      setAppIsReady(true)
+
+      await SplashScreen.hideAsync()
+    }
+
+    setAppReady()
+  }, [])
+
+  if (!appIsReady) {
+    return <></>
+  }
 
   if (!token) {
     return <AuthRoutes />
