@@ -43,37 +43,41 @@ export function Dashboard() {
       </View>
 
       <SafeAreaView className="absolute left-0 right-0 bottom-0">
-        <View className="m-6 h-16 flex-row bg-zinc-300 p-2">
+        <View className="m-6 flex-row  justify-center">
           <TouchableOpacity
-            className="flex-1 items-center justify-center"
+            activeOpacity={0.6}
+            className="w-14 h-14 items-center justify-center bg-zinc-300"
             disabled
           >
             <Home />
           </TouchableOpacity>
 
           <TouchableOpacity
-            className="flex-1 items-center justify-center"
+            activeOpacity={0.6}
+            className="w-14 h-14 items-center justify-center bg-zinc-300"
             onPress={navigateToFriends}
           >
             <Book />
           </TouchableOpacity>
 
           <IconButton
-            className="px-4 bg-zinc-400 mx-2 justify-center"
+            className="w-14 h-14 bg-zinc-400 items-center justify-center"
             onPress={navigateToNewGame}
           >
-            <Text>+</Text>
+            <Text className="text-2xl">+</Text>
           </IconButton>
 
           <TouchableOpacity
-            className="flex-1 items-center justify-center"
+            activeOpacity={0.6}
+            className="w-14 h-14 items-center justify-center bg-zinc-300"
             onPress={navigateToHistory}
           >
             <Paper />
           </TouchableOpacity>
 
           <TouchableOpacity
-            className="flex-1 items-center justify-center"
+            activeOpacity={0.6}
+            className="w-14 h-14 items-center justify-center bg-zinc-300"
             onPress={navigateToAccount}
           >
             <User />
