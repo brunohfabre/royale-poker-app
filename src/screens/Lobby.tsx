@@ -60,7 +60,7 @@ export function Lobby() {
     })
 
     socket.on(`match.${matchId}.countdown.start`, () => {
-      setCountdownTime(9)
+      setCountdownTime(10)
     })
 
     socket.on(`match.${matchId}.countdown.stop`, () => {

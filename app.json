@@ -17,7 +17,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.royalepoker",
-      "buildNumber": "3",
+      "buildNumber": "4",
       "config": {
         "usesNonExemptEncryption": false
       }
